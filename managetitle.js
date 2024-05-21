@@ -76,10 +76,19 @@ var addUrlToWindowTitle = (function() {
 
 	/**
 	 * An observer which will be attached to the DOM to monitor changes to the
-	 * window's title, do not instantiate here 
+	 * window's title. Do not instantiate here.
 	 * @type {MutationObserver}
 	 */
 	var titleObserver;
+
+  
+  /**
+   * An observer which will be attached to the main body of the document
+   * to detect if input fields are added after page load so the event 
+   * handler can be added. Do not instantiate here. 
+   * @type {MutationObserver}
+   */
+	var newInputFieldsObserver;
 
 	/**
 	 * A flag used so that startup functions are only called once
@@ -150,6 +159,13 @@ var addUrlToWindowTitle = (function() {
       
       // Updates functionality based on showFieldAttributes
       updateShowFieldAttributesSettings();
+
+      // Only enable the newInputFieldsObserver if we are going to track fields in the first place
+      if(showFieldAttributes === true){
+        observeForNewInputFields();
+      }else{
+        newInputFieldsObserver.disconnect();
+      }
       
       if(firstRun === true){
         //forceInitialFocus must run only after preferences are set
@@ -352,6 +368,45 @@ var addUrlToWindowTitle = (function() {
 		}
 
 	};
+
+
+
+/**
+  * AJAX or other JavaScript calls may results in input fields being added 
+  * after the page loads. This would mean the if you wanted to add the field 
+  * attributes  ( showFieldAttributes == true), the event handler would 
+  * not be added. This should be set to observe / detach based on settings
+  *
+  * @summary Monitor for JavaScript initiated changes to input fields
+  *
+  * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/MutationObserver|MutationObserver} at MDN
+  */
+function observeForNewInputFields() {
+
+  newInputFieldsObserver = new MutationObserver(function(mutations) {
+    
+    // Ideally we would somehow only fire this if the mutation included 
+    // an input field; however, this is more intensive than just calling
+    // the below and querying the input fields on the page... event handler
+    // will not be called twice. There is no nodeList.contains() function.
+    updateShowFieldAttributesSettings();
+
+  });
+
+  var config = { 
+    subtree: true,  
+    childList: true, 
+    attributes: false, 
+    characterData: false 
+  };
+  var target = document.body;
+
+  // Only run the observer if present (prevent special tabs)
+  if(target !== null){ 
+    newInputFieldsObserver.observe(target, config);
+  }
+
+};
   
   /**
 	 * If the user set the preferences of the add-on such that the name and id of 
