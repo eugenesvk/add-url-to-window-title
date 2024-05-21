@@ -27,13 +27,13 @@ No external libraries are used for this extension and all code is vanilla JavaSc
 
 To load a local version, follow the docs [to load local extension](https://developer.chrome.com/extensions/faq#faq-dev-01)
 
-As a regular user, you can install the [Chrome Webstore](https://chrome.google.com/webstore/detail/add-url-to-window-title/ndiaggkadcioihmhghipjmgfeamgjeoi) version if you use Chrome, Vivaldi, or similar Chromium based browser. This extension also works in Firefox and can be installed from the [Firefox Add-Ons Directory](https://addons.mozilla.org/en-US/firefox/addon/add-url-to-window-title/).
+As a regular user, you can install the [Chrome Webstore](https://chrome.google.com/webstore/detail/add-url-to-window-title/ndiaggkadcioihmhghipjmgfeamgjeoi) version if you use Chrome, Edge, Vivaldi, or similar Chromium based browser. This extension also works in Firefox and can be installed from the [Firefox Add-Ons Directory](https://addons.mozilla.org/en-US/firefox/addon/add-url-to-window-title/).
 
 
 
 ## Running the tests
 
-To test that the extension is properly updating the window title value (i.e., the `<title />` field), we use Katalon Recorder to run simulated navigation scenarios and check that values are updated as we expect. To learn more about how to run the tests and how to create your own, visit the [README](/tests/katalon-recorder/README.md) in the `katalon-recorder` tests folder.
+To test that the extension is properly updating the window title value (i.e., the `<title />` field), we use Katalon Recorder to run simulated navigation scenarios and check that values are updated as we expect. To learn more about how to run the tests and how to create your own, visit the [README](/tests/katalon-recorder/README.md) in the `katalon-recorder` tests folder. (2024 Note: These test have not been updated, many of the test pages have changed in the past few years. I am currently doing some small tests, but most functionality has not changed in the core of the extension.)
 
 We are exploring migration to selenium web driver and CI via Travis. If you have some experience with this type of testing and would like to help, please open an issue to discuss. 
 
@@ -61,9 +61,7 @@ Please rate and leave feedback on the [Chrome Webstore](https://chrome.google.co
 
 If you find this extension useful and it saved you some time, please help support development by donating $2.22 USD:
 
-  - [Donate via PayPal Pool](https://www.paypal.com/pools/c/8799nHVefv)
-  - Donate via Bitcoin (BTC): [38BgwZpgTGpBBSLLEhuBxy6CsjdKUsEaN3](https://www.blockchain.com/btc/address/38BgwZpgTGpBBSLLEhuBxy6CsjdKUsEaN3)
-  - Donate via Ethereum (ETH): [0x802dC14dB6B43571026683846ca22212e82F25b7](https://ethplorer.io/address/0x802dc14db6b43571026683846ca22212e82f25b7) 
+  - [Donate via PayPal](https://www.paypal.com/donate/?hosted_button_id=7JCYGBTV9WRA8)
 
 No money? Feel free to send a thank you note, drawing, etc. You can also support the continued development of this extension by helping with [translations](#contributing) and [reporting any issues or problems](https://github.com/erichgoldman/add-url-to-window-title/issues/).
 
