@@ -19,20 +19,25 @@
 
 /**
  * Declare the base library for browser extensions in an opportunistic way to increase cross-browser compatibility
- * @see {@https://www.smashingmagazine.com/2017/04/browser-extension-edge-chrome-firefox-opera-brave-vivaldi/}
+ * @see {@https://developer.chrome.com/docs/extensions/reference/api/runtime}
+ * @see {@https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/API/runtime/onInstalled}
  */
-window.browser = (function () { return window.chrome || window.browser || window.msBrowser;})();
+let platform = chrome;
+
+if (!(typeof browser === "undefined" || browser === null)) {
+  platform = browser;
+}
 
 /**
- * When the extension is installed initially, populate the default variables for the options on first install ONLY
- * @see {@https://developer.mozilla.org/en-US/Add-ons/WebExtensions/API/runtime/onInstalled runtime.onInstalled} documentation for more information
+ * Run install/update checks or needed work
+ * @see {@https://developer.chrome.com/docs/extensions/reference/api/runtime#event-onInstalled} documentation for more information
  */
-browser.runtime.onInstalled.addListener(function(details){
+platform.runtime.onInstalled.addListener(function(details){
   
   if(details.reason == "install"){
-    console.log("Installed, version: " + browser.runtime.getManifest().version);   
+    console.log("Installed, version: " + platform.runtime.getManifest().version);   
   }else if(details.reason == "update"){
-    console.log("Updated from " + details.previousVersion + " to " + browser.runtime.getManifest().version + "!"); 
+    console.log("Updated from " + details.previousVersion + " to " + platform.runtime.getManifest().version + "!"); 
   }
   
 });  
